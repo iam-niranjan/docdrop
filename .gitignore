@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+.env
+
+# Placeholder created by the global security pre-commit hook (read-only bind mount)
+.pre-commit-config.yaml

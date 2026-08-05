@@ -1,0 +1,21 @@
+{
+  "name": "docdrop",
+  "version": "0.1.0",
+  "description": "Drop a document. Get clean Markdown. No AI, no account, no history. Powered by @firecrawl/anydoc.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "docdrop": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@firecrawl/anydoc": "^0.1.3",
+    "busboy": "^1.6.0"
+  }
+}

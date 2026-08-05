@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Turn documents into clean Markdown without accounts, history, or AI. Powered by the anydoc engine." />
+    <title>docdrop — Files in. Markdown out.</title>
+    <link rel="stylesheet" href="/app.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="docdrop home">
+        <span class="brand-mark" aria-hidden="true">↓md</span>
+        <span>docdrop</span>
+      </a>
+      <div class="privacy-pill"><span aria-hidden="true"></span>No AI · No history</div>
+    </header>
+
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title"><span class="hero-icon" aria-hidden="true">↓md</span>Files in. Markdown out.</h1>
+        <p class="lede">Drop a document and get clean, editable Markdown. No account, no saved files, and no AI.</p>
+      </section>
+
+      <section class="workspace" aria-label="File converter">
+        <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-describedby="drop-help">
+          <input id="file-input" type="file" accept=".pdf,.doc,.docx,.docm,.ppt,.pptx,.pptm,.ppsx,.pps,.ppsm,.pot,.xls,.xlsx,.xlsm,.xlsb,.odt,.ods,.odp,.rtf,.epub,.csv" hidden />
+          <div class="drop-icon" aria-hidden="true">↧</div>
+          <h2>Drop a file here</h2>
+          <p id="drop-help">or <span class="browse-link">choose from your device</span></p>
+          <p class="limit">One file · Up to 20 MB</p>
+        </div>
+
+        <div id="processing" class="processing" hidden aria-live="polite">
+          <div class="processing-file">
+            <span class="file-badge" id="processing-ext">FILE</span>
+            <div><strong id="processing-name"></strong><span>Converting…</span></div>
+          </div>
+          <div class="progress"><span></span></div>
+        </div>
+
+        <div id="error-box" class="error-box" hidden role="alert">
+          <strong>Conversion didn’t work</strong>
+          <span id="error-message"></span>
+          <button id="try-again" type="button">Choose another file</button>
+        </div>
+
+        <div id="result" class="result" hidden>
+          <div class="result-toolbar">
+            <div class="result-file">
+              <span class="success-mark" aria-hidden="true">✓</span>
+              <div><strong id="result-name"></strong><span id="result-meta"></span></div>
+            </div>
+            <button id="reset" class="text-button" type="button">Convert another</button>
+          </div>
+          <label class="editor-label" for="markdown-output">Markdown</label>
+          <textarea id="markdown-output" spellcheck="false" aria-label="Converted Markdown"></textarea>
+          <div class="result-actions">
+            <span id="edit-status">You can edit before copying.</span>
+            <div>
+              <button id="download" class="secondary-button" type="button">Download .md</button>
+              <button id="copy" class="primary-button" type="button">Copy Markdown</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="details" aria-label="Product details">
+        <div><span>01</span><h3>Broad support</h3><p>Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV, and PDF — 20+ formats.</p></div>
+        <div><span>02</span><h3>Nothing remembered</h3><p>No login and no conversion history. Uploads are held in memory and discarded after each request.</p></div>
+        <div><span>03</span><h3>Deterministic</h3><p>No AI models or API calls. The Rust anydoc engine follows the same conversion rules every time.</p></div>
+      </section>
+    </main>
+
+    <footer><p>docdrop <span>•</span> Powered by <span class="link">@firecrawl/anydoc</span></p><p class="formats">PDF · DOCX · PPTX · XLSX · ODT · RTF · EPUB · CSV</p></footer>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
