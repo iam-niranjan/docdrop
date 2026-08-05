@@ -3,5 +3,9 @@ node_modules/
 .DS_Store
 .env
 
+# anydoc-wasm engine, fetched from npm at build time (see docs/README build note)
+docs/anydoc_wasm.js
+docs/anydoc_wasm_bg.wasm
+
 # Placeholder created by the global security pre-commit hook (read-only bind mount)
 .pre-commit-config.yaml

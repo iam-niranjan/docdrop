@@ -14,6 +14,15 @@ entirely in-process.
 Browser → Node web server → anydoc (Rust) engine → Markdown response
 ```
 
+docdrop ships in two forms that share the same UI:
+
+- **Server build** (`src/`, `public/`, `Dockerfile`) — a self-hostable Node app
+  that runs anydoc server-side. Documented below.
+- **Browser build** (`docs/`) — a fully static site that runs anydoc as
+  WebAssembly in the browser, so files never leave the visitor's machine. It is
+  deployed to GitHub Pages and needs no server. See
+  [Browser build (GitHub Pages)](#browser-build-github-pages).
+
 ## Run
 
 Requirements: Node.js 20 or newer.
@@ -46,6 +55,28 @@ docker run --rm --name docdrop \
 
 For public deployment, place it behind an HTTPS reverse proxy or managed load
 balancer with request-rate and concurrency limits.
+
+## Browser build (GitHub Pages)
+
+`docs/` is a fully static version of docdrop that runs the anydoc engine as
+WebAssembly directly in the browser via
+[`@firecrawl/anydoc-wasm`](https://www.npmjs.com/package/@firecrawl/anydoc-wasm).
+There is no server and no upload — the document is converted on the visitor's own
+machine. It is published to GitHub Pages by
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml) on every push to
+`main`.
+
+The ~6 MB WebAssembly binary is not committed; the workflow fetches it from npm
+and drops it beside the page at deploy time. To build and preview it locally:
+
+```bash
+npm install --no-save @firecrawl/anydoc-wasm@0.1.5
+cp node_modules/@firecrawl/anydoc-wasm/anydoc_wasm.js docs/
+cp node_modules/@firecrawl/anydoc-wasm/anydoc_wasm_bg.wasm docs/
+python3 -m http.server -d docs 8000   # then open http://127.0.0.1:8000
+```
+
+(The copied `anydoc_wasm*` files are gitignored.)
 
 ## Supported formats
 
@@ -111,8 +142,10 @@ docker build -t docdrop .
 ```text
 src/server.js    Node HTTP server, static UI, and the /api/convert endpoint
 src/convert.js   anydoc wrapper: upload limits, format gating, timeout
-public/          Embedded browser interface (HTML, CSS, JS)
+public/          Server build's browser interface (HTML, CSS, JS)
 Dockerfile       Multi-stage build with a test stage and runtime image
+docs/            Static browser build (anydoc-wasm) deployed to GitHub Pages
+.github/         Pages deploy workflow
 ```
 
 ## Credits
